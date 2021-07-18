@@ -192,7 +192,7 @@ privateNamespace.on('connection', (socket) => {
         messages: messagesPerUser.get(user.id)
       }))
       console.log('messageData: ', messageData)
-      privateNamespace.to(`${socket.user.id}`).emit('historyMessages', messageData)
+      socket.emit('historyMessages', messageData)
     } catch (err) {
       console.log(err)
     }
