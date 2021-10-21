@@ -68,11 +68,12 @@ const adminController = {
             'TweetCounts'
           ],
           [
-            Sequelize.literal(`(
-              SELECT SUM(Tweets.likeCounts)
-              FROM Tweets
-              WHERE Tweets.UserId = User.id
-            )`),
+            Sequelize.cast(
+              Sequelize.literal(`(
+                SELECT SUM(Tweets.likeCounts)
+                FROM Tweets
+                WHERE Tweets.UserId = User.id
+              )`), 'signed'),
             'BeLikedCounts'
           ]
         ],
