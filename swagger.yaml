@@ -1,0 +1,1766 @@
+openapi: 3.0.0
+info:
+  title: Simple Twitter API
+  description: This is a sample API server for "Simple Twitter" project. <br>You can use `POST /users/signin` or `POST /admin/signin` to gain a JWT bearer token to get authorized. <br> **Sample accounts:**<br> user - user1@example.com / 12345678 <br> admin - root@example.com / 12345678
+  contact:
+    name: GitHub Repository
+    url: 'https://github.com/bradychen2/twitter-api-2020'
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/chriszychen/simple-twitter-api/1.0.0
+  - description: Heroku Remote Server
+    url: https://simple-twitter-api-demo.herokuapp.com/api
+  - description: Local Development Server
+    url: https://localhost:3000/api
+
+tags:
+  - name: User
+    description: APIs related to users
+  - name: Admin
+    description: APIs related to administration
+  - name: Tweet
+    description: APIs related to tweets
+  - name: Reply
+    description: APIs related to replies
+  - name: Like
+    description: APIs related to like action
+  - name: Followship
+    description: APIs related to followship
+paths:
+  /current_user:
+    get:
+      tags:
+        - User
+      summary: '取得登入使用者資料'
+      responses:
+        '200':
+          description: '回應登入使用者資料'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  account:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  avatar:
+                    type: string
+                  cover:
+                    type: string
+                  introduction:
+                    type: string
+                  followingCounts:
+                    type: integer
+                  followerCounts:
+                    type: integer
+                  Followers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                        password:
+                          type: string
+                        name:
+                          type: string
+                        account:
+                          type: string
+                        avatar:
+                          type: string
+                        cover:
+                          type: string
+                        introduction:
+                          type: string
+                        role:
+                          type: string
+                        followingCounts:
+                          type: integer
+                        followerCounts:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        Followship:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            followerId:
+                              type: integer
+                            followingId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                  Followings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                        password:
+                          type: string
+                        name:
+                          type: string
+                        account:
+                          type: string
+                        avatar:
+                          type: string
+                        cover:
+                          type: string
+                        introduction:
+                          type: string
+                        role:
+                          type: string
+                        followingCounts:
+                          type: integer
+                        followerCounts:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        Followship:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            followerId:
+                              type: integer
+                            followingId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+              example:
+                id: 2
+                name: 'user1'
+                account: 'user1'
+                email: 'user1@example.com'
+                role: 'normal'
+                avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+                cover: 'https://loremflickr.com/960/640/landscape/?lock=76'
+                introduction: 'fugit'
+                followingCounts: 0
+                followerCounts: 0
+                Followers:
+                  - id: 2
+                    email: 'user1@example.com'
+                    password: '$2a$10$F0Lgwl8JCRLBy8L8ve9bZeS.oi8h3IVLh36/hC8J5MsWM3lQVLZdi'
+                    name: 'user1'
+                    account: 'user1'
+                    avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+                    cover: 'https://loremflickr.com/960/640/landscape/?lock=29'
+                    introduction: 'Perferendis quaerat hic sed magnam eos.'
+                    role: 'normal'
+                    followingCounts: 4
+                    followerCounts: 1
+                    createdAt: '2021-07-07T02:22:59.000Z'
+                    updatedAt: '2021-09-17T00:22:11.000Z'
+                    Followship:
+                      id: 1
+                      followerId: 2
+                      followingId: 3
+                      createdAt: '2021-07-07T02:22:59.000Z'
+                      updatedAt: '2021-07-07T02:22:59.000Z'
+                Followings:
+                  - id: 2
+                    email: 'user1@example.com'
+                    password: '$2a$10$F0Lgwl8JCRLBy8L8ve9bZeS.oi8h3IVLh36/hC8J5MsWM3lQVLZdi'
+                    name: 'user1'
+                    account: 'user1'
+                    avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+                    cover: 'https://loremflickr.com/960/640/landscape/?lock=29'
+                    introduction: 'Perferendis quaerat hic sed magnam eos.'
+                    role: 'normal'
+                    followingCounts: 4
+                    followerCounts: 1
+                    createdAt: '2021-07-07T02:22:59.000Z'
+                    updatedAt: '2021-09-17T00:22:11.000Z'
+                    Followship:
+                      id: 1
+                      followerId: 2
+                      followingId: 3
+                      createdAt: '2021-07-07T02:22:59.000Z'
+                      updatedAt: '2021-07-07T02:22:59.000Z'
+        '401':
+          description: 回應使用者未成功登入的訊息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                no token:
+                  value:
+                    message: 'No auth token'
+                invalid signature:
+                  value:
+                    message: 'invalid signature'
+                invalid token:
+                  value:
+                    message: 'invalid token'
+                invalid algorithm:
+                  value:
+                    message: 'invalid algorithm'
+                unexpected number in token:
+                  value:
+                    message: 'Unexpected number in JSON at position _'
+  /signin:
+    post:
+      tags:
+        - User
+      summary: '使用者登入'
+      requestBody:
+        description: '使用者登入的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: 'user1@example.com'
+              password: '12345678'
+      responses:
+        '200':
+          description: '回應登入動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '登入成功！'
+                    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjMyMTI3NDc0fQ.hM2wk28Xl8xvjrEWC9YJ3qqf5ip0iUu1QlGjSazRjUc'
+                    user:
+                      id: 2
+                      account: 'user1'
+                      name: 'user1'
+                      email: 'user1@example.com'
+                      role: 'normal'
+                      avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: 'Email跟密碼皆為必填！'
+                cannot find email:
+                  value:
+                    status: 'error'
+                    message: '找不到此Email。'
+                incorrect email or password:
+                  value:
+                    status: 'error'
+                    message: '帳號或密碼不正確！'
+                wrong authority:
+                  value:
+                    status: 'error'
+                    message: '管理者無法登入前台！'
+  /users/:
+    post:
+      tags:
+        - User
+      summary: '註冊新使用者'
+      requestBody:
+        description: '註冊新使用者的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - account
+                - name
+                - email
+                - password
+                - checkPassword
+              properties:
+                account:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                checkPassword:
+                  type: string
+            example:
+              account: 'user1'
+              name: 'user1'
+              email: 'user1@example.com'
+              password: '12345678'
+              checkPassword: '12345678'
+      responses:
+        '200':
+          description: '回應註冊動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '帳號註冊成功！'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: '所有欄位皆為必填！'
+                password check failure:
+                  value:
+                    status: 'error'
+                    message: '密碼與確認密碼不符！'
+                email already exists:
+                  value:
+                    status: 'error'
+                    message: '此Email已存在。'
+                account already exists:
+                  value:
+                    status: 'error'
+                    message: '此帳號已存在。'
+  /users/top:
+    get:
+      tags:
+        - User
+      summary: '取得追隨者數量前十的使用者'
+      responses:
+        '200':
+          description: '回應前十的使用者資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    account:
+                      type: string
+                    avatar:
+                      type: string
+                    followerCounts:
+                      type: integer
+                    isFollowed:
+                      type: boolean
+              example:
+                - id: 2
+                  name: 'user1'
+                  account: 'user1'
+                  avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+                  followerCounts: 1
+                  isFollowed: false
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者的個人資訊'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者資料'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  account:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  avatar:
+                    type: string
+                  cover:
+                    type: string
+                  introduction:
+                    type: string
+                  isFollowed:
+                    type: boolean
+                  followingCounts:
+                    type: integer
+                  followerCounts:
+                    type: integer
+                  Followers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                        password:
+                          type: string
+                        name:
+                          type: string
+                        account:
+                          type: string
+                        avatar:
+                          type: string
+                        cover:
+                          type: string
+                        introduction:
+                          type: string
+                        role:
+                          type: string
+                        followingCounts:
+                          type: integer
+                        followerCounts:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        Followship:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            followerId:
+                              type: integer
+                            followingId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+                  Followings:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        email:
+                          type: string
+                        password:
+                          type: string
+                        name:
+                          type: string
+                        account:
+                          type: string
+                        avatar:
+                          type: string
+                        cover:
+                          type: string
+                        introduction:
+                          type: string
+                        role:
+                          type: string
+                        followingCounts:
+                          type: integer
+                        followerCounts:
+                          type: integer
+                        createdAt:
+                          type: string
+                          format: date-time
+                        updatedAt:
+                          type: string
+                          format: date-time
+                        Followship:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            followerId:
+                              type: integer
+                            followingId:
+                              type: integer
+                            createdAt:
+                              type: string
+                              format: date-time
+                            updatedAt:
+                              type: string
+                              format: date-time
+              example:
+                id: 2
+                name: 'user1'
+                account: 'user1'
+                email: 'user1@example.com'
+                role: 'normal'
+                avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+                cover: 'https://loremflickr.com/960/640/landscape/?lock=76'
+                introduction: 'fugit'
+                isFollowed: false
+                followingCounts: 0
+                followerCounts: 0
+                Followers:
+                  - id: 2
+                    email: 'user1@example.com'
+                    password: '$2a$10$F0Lgwl8JCRLBy8L8ve9bZeS.oi8h3IVLh36/hC8J5MsWM3lQVLZdi'
+                    name: 'user1'
+                    account: 'user1'
+                    avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+                    cover: 'https://loremflickr.com/960/640/landscape/?lock=29'
+                    introduction: 'Perferendis quaerat hic sed magnam eos.'
+                    role: 'normal'
+                    followingCounts: 4
+                    followerCounts: 1
+                    createdAt: '2021-07-07T02:22:59.000Z'
+                    updatedAt: '2021-09-17T00:22:11.000Z'
+                    Followship:
+                      id: 1
+                      followerId: 2
+                      followingId: 3
+                      createdAt: '2021-07-07T02:22:59.000Z'
+                      updatedAt: '2021-07-07T02:22:59.000Z'
+                Followings:
+                  - id: 2
+                    email: 'user1@example.com'
+                    password: '$2a$10$F0Lgwl8JCRLBy8L8ve9bZeS.oi8h3IVLh36/hC8J5MsWM3lQVLZdi'
+                    name: 'user1'
+                    account: 'user1'
+                    avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+                    cover: 'https://loremflickr.com/960/640/landscape/?lock=29'
+                    introduction: 'Perferendis quaerat hic sed magnam eos.'
+                    role: 'normal'
+                    followingCounts: 4
+                    followerCounts: 1
+                    createdAt: '2021-07-07T02:22:59.000Z'
+                    updatedAt: '2021-09-17T00:22:11.000Z'
+                    Followship:
+                      id: 1
+                      followerId: 2
+                      followingId: 3
+                      createdAt: '2021-07-07T02:22:59.000Z'
+                      updatedAt: '2021-07-07T02:22:59.000Z'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+    put:
+      tags:
+        - User
+      summary: '更新登入使用者個人資訊'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: '登入使用者更新個人資訊的表單'
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  example: 'user1'
+                introduction:
+                  type: string
+                avatar:
+                  type: string
+                  format: binary
+                cover:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: '回應更新個人資訊動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '個人資料修改成功'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: '名稱不可空白！'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/likes:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者的喜歡的推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者喜歡的推文資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    description:
+                      type: string
+                    replyCounts:
+                      type: integer
+                    likeCounts:
+                      type: integer
+                    createdAt:
+                      type: string
+                    TweetId:
+                      type: integer
+                    User:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+              example:
+                - id: 15
+                  description: 'Doloremque tempora rerum et et corrupti vero.'
+                  replyCounts: 3
+                  likeCounts: 1
+                  createdAt: '2021-07-07 10:22:59 am'
+                  TweetId: 15
+                  User:
+                    id: 6
+                    account: 'user5'
+                    name: 'user5'
+                    avatar: 'https://randomuser.me/api/portraits/women/37.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/replied_tweets:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者的回覆過的推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者回覆過的推文資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    comment:
+                      type: string
+                    createdAt:
+                      type: string
+                    Tweet:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        description:
+                          type: string
+                        replyCounts:
+                          type: integer
+                        likeCounts:
+                          type: integer
+                        createdAt:
+                          type: string
+                        isLiked:
+                          type: boolean
+                        User:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            account:
+                              type: string
+                            name:
+                              type: string
+                            avatar:
+                              type: string
+              example:
+                - id: 151
+                  comment: '123346'
+                  createdAt: '2021-07-21 03:09:34 pm'
+                  Tweet:
+                    id: 7
+                    description: 'Voluptatibus cum eligendi animi.'
+                    createdAt: '2021-07-07 10:22:59 am'
+                    replyCounts: 4
+                    likeCounts: 0
+                    isLiked: false
+                    User:
+                      id: 3
+                      name: 'user2'
+                      account: 'user2'
+                      avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/tweets:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者的推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者的推文資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    description:
+                      type: string
+                    replyCounts:
+                      type: integer
+                    likeCounts:
+                      type: integer
+                    createdAt:
+                      type: string
+                    isLiked:
+                      type: boolean
+                    User:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+              example:
+                - id: 7
+                  description: 'Voluptatibus cum eligendi animi.'
+                  createdAt: '2021-07-07 10:22:59 am'
+                  replyCounts: 4
+                  likeCounts: 0
+                  isLiked: false
+                  User:
+                    id: 3
+                    name: 'user2'
+                    account: 'user2'
+                    avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/followings:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者追隨中的人'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者追隨中的人資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    followerId:
+                      type: integer
+                    followingId:
+                      type: integer
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    isFollowed:
+                      type: boolean
+                    Following:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+                        introduction:
+                          type: string
+              example:
+                - id: 8
+                  followerId: 2
+                  followingId: 6
+                  createdAt: '2021-09-17T00:22:11.000Z'
+                  updatedAt: '2021-09-17T00:22:11.000Z'
+                  isFollowed: false
+                  Following:
+                    id: 6
+                    name: 'user5'
+                    account: 'user5'
+                    avatar: 'https://randomuser.me/api/portraits/women/37.jpg'
+                    introduction: 'Sequi ex possimus voluptate laudantium.'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/followers:
+    get:
+      tags:
+        - User
+      summary: '取得指定使用者的追隨者'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應指定使用者的追隨者資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    followerId:
+                      type: integer
+                    followingId:
+                      type: integer
+                    createdAt:
+                      type: string
+                      format: date-time
+                    updatedAt:
+                      type: string
+                      format: date-time
+                    isFollowed:
+                      type: boolean
+                    Follower:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+                        introduction:
+                          type: string
+              example:
+                - id: 8
+                  followerId: 2
+                  followingId: 6
+                  createdAt: '2021-09-17T00:22:11.000Z'
+                  updatedAt: '2021-09-17T00:22:11.000Z'
+                  isFollowed: false
+                  Follower:
+                    id: 6
+                    name: 'user5'
+                    account: 'user5'
+                    avatar: 'https://randomuser.me/api/portraits/women/37.jpg'
+                    introduction: 'Sequi ex possimus voluptate laudantium.'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/edit:
+    put:
+      tags:
+        - User
+      summary: '更新登入使用者帳號資訊'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: '更新登入使用者帳號資訊的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - account
+                - name
+                - email
+                - password
+                - checkPassword
+              properties:
+                account:
+                  type: string
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                checkPassword:
+                  type: string
+            example:
+              account: 'user1'
+              name: 'user1'
+              email: 'user1@example.com'
+              password: '12345678'
+              checkPassword: '12345678'
+      responses:
+        '200':
+          description: '回應更新登入使用者帳號資訊動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '個人設定修改成功'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: '所有欄位皆為必填！'
+                password check failure:
+                  value:
+                    status: 'error'
+                    message: '密碼與確認密碼不符！'
+                email already exists:
+                  value:
+                    status: 'error'
+                    message: '此Email已存在。'
+                account already exists:
+                  value:
+                    status: 'error'
+                    message: '此帳號已存在。'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /users/{id}/cover:
+    delete:
+      tags:
+        - User
+      summary: '刪除登入使用者封面'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應刪除登入使用者封面動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              example:
+                status: 'success'
+                message: '個人封面已刪除'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /admin/signin:
+    post:
+      tags:
+        - Admin
+      summary: '管理者登入'
+      requestBody:
+        description: '管理者登入的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: 'user1@example.com'
+              password: '12345678'
+      responses:
+        '200':
+          description: '回應登入動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '登入成功！'
+                    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjMyMTI3NDc0fQ.hM2wk28Xl8xvjrEWC9YJ3qqf5ip0iUu1QlGjSazRjUc'
+                    user:
+                      id: 2,
+                      account: 'user1'
+                      name: 'user1'
+                      email: 'user1@example.com'
+                      role: 'normal'
+                      avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: 'Email跟密碼皆為必填！'
+                cannot find Email:
+                  value:
+                    status: 'error'
+                    message: '找不到此Email。'
+                Incorrect email or password:
+                  value:
+                    status: 'error'
+                    message: '帳號或密碼不正確！'
+                wrong authority:
+                  value:
+                    status: 'error'
+                    message: '非管理者無法登入後台！'
+  /admin/users:
+    get:
+      tags:
+        - Admin
+      summary: '取得所有使用者資訊'
+      responses:
+        '200':
+          description: '回應所有使用者的資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    account:
+                      type: string
+                    avatar:
+                      type: string
+                    cover:
+                      type: string
+                    followingCounts:
+                      type: integer
+                    followerCounts:
+                      type: integer
+                    TweetCounts:
+                      type: integer
+                    BeLikedCounts:
+                      type: integer
+              example:
+                - id: 2
+                  name: user1
+                  account: user1
+                  avatar: https://randomuser.me/api/portraits/men/55.jpg
+                  cover: https://loremflickr.com/960/640/landscape/?lock=29
+                  followingCounts: 4
+                  followerCounts: 1
+                  TweetCounts: 13
+                  BeLikedCounts: 0
+        '401':
+          $ref: '#/components/responses/unauthorizedAdmin'
+  /admin/tweets:
+    get:
+      tags:
+        - Admin
+      summary: '取得所有推文資訊'
+      responses:
+        '200':
+          description: '回應所有推文的資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    description:
+                      type: string
+                    createdAt:
+                      type: string
+                    User:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        account:
+                          type: string
+                        avatar:
+                          type: string
+              example:
+                - id: 53
+                  description: hey jude
+                  createdAt: 2021-09-16 11:45:59 pm
+                  User:
+                    id: 2
+                    name: 'user1'
+                    account: 'user1'
+                    avatar: 'https://randomuser.me/api/portraits/men/55.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedAdmin'
+  /admin/tweets/{id}:
+    delete:
+      tags:
+        - Admin
+      summary: '刪除指定推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '刪除指定推文的資料'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              example:
+                status: 'success'
+                message: '成功刪除推文！'
+        '401':
+          $ref: '#/components/responses/unauthorizedAdmin'
+  /tweets/:
+    get:
+      tags:
+        - Tweet
+      summary: '取得所有推文'
+      responses:
+        '200':
+          description: '回應所有推文的資料'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    description:
+                      type: string
+                    replyCounts:
+                      type: integer
+                    likeCounts:
+                      type: integer
+                    createdAt:
+                      type: string
+                    isLiked:
+                      type: boolean
+                    User:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        account:
+                          type: string
+                        name:
+                          type: string
+                        avatar:
+                          type: string
+              example:
+                - id: 7
+                  description: 'Voluptatibus cum eligendi animi.'
+                  createdAt: '2021-07-07 10:22:59 am'
+                  replyCounts: 4
+                  likeCounts: 0
+                  isLiked: false
+                  User:
+                    id: 3
+                    name: 'user2'
+                    account: 'user2'
+                    avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+    post:
+      tags:
+        - Tweet
+      summary: '新增推文'
+      requestBody:
+        description: '新增推文的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - description
+              properties:
+                description:
+                  type: string
+                  example: 'Hello world'
+      responses:
+        '200':
+          description: '回應推文的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '成功新增推文內容！'
+                no content:
+                  value:
+                    status: 'error'
+                    message: '推文內容不能為空白！'
+                exceeds content limit:
+                  value:
+                    status: 'error'
+                    message: '推文內容上限為140字！'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /tweets/{id}:
+    get:
+      tags:
+        - Tweet
+      summary: '取得指定推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '回應指定推文的資料'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  description:
+                    type: string
+                  replyCounts:
+                    type: integer
+                  likeCounts:
+                    type: integer
+                  createdAt:
+                    type: string
+                  isLiked:
+                    type: boolean
+                  User:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      account:
+                        type: string
+                      name:
+                        type: string
+                      avatar:
+                        type: string
+              example:
+                id: 7
+                description: 'Voluptatibus cum eligendi animi.'
+                createdAt: '2021-07-07 10:22:59 am'
+                replyCounts: 4
+                likeCounts: 0
+                isLiked: false
+                User:
+                  id: 3
+                  name: 'user2'
+                  account: 'user2'
+                  avatar: 'https://randomuser.me/api/portraits/men/54.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /tweets/{tweet_id}/replies:
+    get:
+      tags:
+        - Reply
+      summary: '取得指定推文所有的回覆'
+      parameters:
+        - name: tweet_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '回應指定推文所有的回覆的資料'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  comment:
+                    type: string
+                  createdAt:
+                    type: string
+                  User:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      account:
+                        type: string
+                      name:
+                        type: string
+                      avatar:
+                        type: string
+              example:
+                id: 11
+                comment: 'Sed tempora excepturi et quibusdam.'
+                createdAt: '2021-07-07 10:22:59 am'
+                User:
+                  id: 6
+                  name: 'user5'
+                  account: 'user5'
+                  avatar: 'https://randomuser.me/api/portraits/women/37.jpg'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+    post:
+      tags:
+        - Reply
+      summary: '新增回覆至指定推文'
+      parameters:
+        - name: tweet_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: '新增回覆至指定推文的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - comment
+              properties:
+                comment:
+                  type: string
+                  example: 'Hello world'
+      responses:
+        '200':
+          description: '回應新增回覆至指定推文的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '成功新增回覆內容！'
+                no content:
+                  value:
+                    status: 'error'
+                    message: '回覆內容不能為空白！'
+                exceeds content limit:
+                  value:
+                    status: 'error'
+                    message: '回覆內容上限為140字！'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /tweets/{id}/like:
+    post:
+      tags:
+        - Like
+      summary: '喜歡指定推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應喜歡指定推文的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '新增喜愛的貼文'
+                like record already exists:
+                  value:
+                    status: 'error'
+                    message: 'Like 已存在'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /tweets/{id}/unlike:
+    post:
+      tags:
+        - Like
+      summary: '取消喜歡指定推文'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: '回應取消喜歡指定推文的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '已取消喜愛這則貼文'
+                like record doesn't exists:
+                  value:
+                    status: 'error'
+                    message: '指定的 Like 不存在'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /followships/:
+    post:
+      tags:
+        - Followship
+      summary: '追隨指定使用者'
+      requestBody:
+        description: '追隨指定使用者的表單'
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: integer
+                  example: 2
+      responses:
+        '200':
+          description: '回應追隨指定使用者的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '新增追隨成功！'
+                lack of required value:
+                  value:
+                    status: 'error'
+                    message: '未傳入欲追隨者id！'
+                cannot follow self:
+                  value:
+                    status: 'error'
+                    message: '無法追隨自己！'
+                already followed:
+                  value:
+                    status: 'error'
+                    message: '已追隨這個使用者！'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+  /followships/{followingId}:
+    delete:
+      tags:
+        - Followship
+      summary: '取消追隨指定使用者'
+      parameters:
+        - name: followingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: '回應取消追隨指定使用者的動作訊息'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                success:
+                  value:
+                    status: 'success'
+                    message: '已取消追隨'
+                following record doesn't exists:
+                  value:
+                    status: 'error'
+                    message: '未追隨此使用者！'
+        '401':
+          $ref: '#/components/responses/unauthorizedUser'
+components:
+  responses:
+    unauthorizedUser:
+      description: 回應使用者未成功登入的訊息
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - type: object
+                properties:
+                  message:
+                    type: string
+              - $ref: '#/components/schemas/ApiResponse'
+          examples:
+            no token:
+              value:
+                message: 'No auth token'
+            invalid signature:
+              value:
+                message: 'invalid signature'
+            invalid token:
+              value:
+                message: 'invalid token'
+            invalid algorithm:
+              value:
+                message: 'invalid algorithm'
+            unexpected number in token:
+              value:
+                message: 'Unexpected number in JSON at position _'
+            wrong authority:
+              value:
+                status: 'error'
+                message: '管理者沒有權限登入前台！'
+            permission denied:
+              value:
+                status: 'error'
+                message: '未通過身份驗證！'
+    unauthorizedAdmin:
+      description: 回應管理者未成功登入的訊息
+      content:
+        application/json:
+          schema:
+            anyOf:
+              - type: object
+                properties:
+                  message:
+                    type: string
+              - $ref: '#/components/schemas/ApiResponse'
+          examples:
+            no token:
+              value:
+                message: 'No auth token'
+            invalid signature:
+              value:
+                message: 'invalid signature'
+            invalid token:
+              value:
+                message: 'invalid token'
+            invalid algorithm:
+              value:
+                message: 'invalid algorithm'
+            unexpected number in token:
+              value:
+                message: 'Unexpected number in JSON at position _'
+            wrong authority:
+              value:
+                status: 'error'
+                message: '非管理者沒有權限登入後台！'
+            permission denied:
+              value:
+                status: 'error'
+                message: '未通過身份驗證！'
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        account:
+          type: string
+        avatar:
+          type: string
+        cover:
+          type: string
+        introduction:
+          type: string
+        role:
+          type: string
+          default: 'normal'
+        followingCounts:
+          type: integer
+        followerCounts:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Tweet:
+      type: object
+      properties:
+        id:
+          type: integer
+        UserId:
+          type: integer
+        description:
+          type: string
+        replyCounts:
+          type: integer
+        likeCounts:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Reply:
+      type: object
+      properties:
+        id:
+          type: integer
+        UserId:
+          type: integer
+        TweetId:
+          type: integer
+        comment:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Like:
+      type: object
+      properties:
+        id:
+          type: integer
+        UserId:
+          type: integer
+        TweetId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Followship:
+      type: object
+      properties:
+        id:
+          type: integer
+        followerId:
+          type: integer
+        followingId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
