@@ -10,8 +10,8 @@
 可使用以下帳號進行登入
 | 登入口 | Email | Password |
 | -------- | -------- | -------- |
-| 後台 | root@example | 12345678 |
-| 前台 | user1@example | 12345678 |
+| 後台 | root@example.com | 12345678 |
+| 前台 | user1@example.com | 12345678 |
 
 ## Features - 專案功能
 
@@ -78,7 +78,7 @@ IMGUR_CLIENT_ID= Your Imgur Application Client ID
 
 ### 即時聊天室
 
-* [Socket.io](https://socket.io/) v4.1.3
+* [Socket.IO](https://socket.io/) v4.1.3
 
 ### 其他
 
