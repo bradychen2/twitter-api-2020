@@ -1,7 +1,7 @@
 const { User, Tweet, Reply, Like } = require('../models')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const moment = require('moment')
+const { formatTime } = require('../utils/helper.js')
 const Sequelize = require('sequelize')
 
 const adminController = {
@@ -68,11 +68,12 @@ const adminController = {
             'TweetCounts'
           ],
           [
-            Sequelize.literal(`(
-              SELECT SUM(Tweets.likeCounts)
-              FROM Tweets
-              WHERE Tweets.UserId = User.id
-            )`),
+            Sequelize.cast(
+              Sequelize.literal(`(
+                SELECT SUM(Tweets.likeCounts)
+                FROM Tweets
+                WHERE Tweets.UserId = User.id
+              )`), 'signed'),
             'BeLikedCounts'
           ]
         ],
@@ -105,7 +106,7 @@ const adminController = {
       const tweets = result.map(tweet => ({
         ...tweet,
         description: tweet.description.substring(0, 50),
-        createdAt: moment(tweet.createdAt).format('YYYY-MM-DD hh:mm:ss a')
+        createdAt: formatTime(tweet.createdAt)
       }))
       return res.json(tweets)
     } catch (err) {
